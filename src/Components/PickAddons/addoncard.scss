@@ -1,0 +1,125 @@
+@use '../../media.scss';
+
+.addonCard {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    border: 1px solid var(--clr-border-input);
+    border-radius: 10px;
+    padding: 0.8em;
+    cursor: pointer;
+
+    transition: border 300ms ease, background 300ms ease;
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+        border: 1px solid var(--clr-purplishBlue);
+    }
+
+    .addonCard__checkboxWrapper {
+        position: relative;
+        padding-left: 1.7em;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        /* Hide the browser's default checkbox */
+        .addonCard__checkbox {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* Create a custom checkbox */
+        .addonCard__checkmark {
+            position: absolute;
+            top: -0.65em;
+            left: 0;
+            height: 1.3em;
+            width: 1.3em;
+            background-color: var(--clr-bg-secondary);
+            border: 1px solid var(--clr-border-input);
+            border-radius: 5px;
+        }
+        
+        /* On mouse-over, add background color */
+        &:hover .addonCard__checkbox ~ .addonCard__checkmark {
+            background-color: var(--clr-lightBlue);
+        }
+        
+        /* When the checkbox is checked, add a purplish background */
+        .addonCard__checkbox:checked ~ .addonCard__checkmark {
+            background-color: var(--clr-purplishBlue);
+        }
+        
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .addonCard__checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        /* Show the checkmark when checked */
+        input:checked ~ .addonCard__checkmark:after {
+            display: block;
+        }
+        
+        /* Style the checkmark/indicator */
+        .addonCard__checkmark:after {
+            left: 0.45em;
+            top: 0.25em;
+            width: 0.3em;
+            height: 0.6em;
+            border: solid var(--clr-bg-secondary);
+            border-width: 0 0.13em 0.13em 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    }
+
+    .addonCard__details {
+        flex: 1;
+
+        h2 {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        p {
+            margin: 0;
+            font-size: 0.8rem;
+            letter-spacing: -0.05ch;
+        }
+    }
+
+    .addonCard__pricing {
+        color: var(--clr-purplishBlue);
+        font-size: 0.8rem;
+    }
+
+    @include media.min-width(medium) {
+        padding: clamp(0.8em, 2vw, 1.2em);
+
+        .addonCard__details {
+            h2 {
+                font-size: 1rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+        }
+
+    }
+}
+
+.cardSelected {
+    background-color: var(--clr-bg-primary);
+    border: 1px solid var(--clr-purplishBlue);
+}

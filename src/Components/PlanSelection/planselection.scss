@@ -1,0 +1,15 @@
+@use '../../media.scss';
+
+.planSelection__contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+
+    transition: all 300ms ease;
+
+    @include media.min-width(medium) {
+        flex-direction: row;
+        gap: 1.1em;
+        padding: 0.75em 0;
+    }
+}

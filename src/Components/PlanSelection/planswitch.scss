@@ -1,0 +1,76 @@
+@use '../../media.scss';
+
+.planSwitch {
+    background-color: var(--clr-bg-secondary);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    padding: 0.8em;
+    margin-top: 0.9em;
+    gap: 1.5em;
+
+    .planSwitch--p {
+        margin: 0;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    .planSwitch--selected {
+        color: var(--clr-font-primary);
+    }
+
+    /* The switch - the box around the slider */
+    .planSwitch__switch {
+        position: relative;
+        display: inline-block;
+        width: 2.35em;
+        height: 1.25em;
+        
+        /* Hide default HTML checkbox */
+        .planSwitch__switch--input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .planSwitch__switch--slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--clr-bg-submitButton);
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50px;
+        }
+        
+        .planSwitch__switch--slider:before {
+            position: absolute;
+            content: "";
+            height: 0.75em;
+            width: 0.75em;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--clr-bg-secondary);
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        .planSwitch__switch--input:focus + .planSwitch__switch--slider {
+            outline: 1px solid var(--clr-bg-submitButton-hover);
+        }
+        
+        .planSwitch__switch--input:checked + .planSwitch__switch--slider:before {
+            -webkit-transform: translateX(1.1em);
+            -ms-transform: translateX(1.1em);
+            transform: translateX(1.1em);
+        }
+    }
+
+    @include media.min-width(medium) {
+        margin-top: clamp(0.2em, 2vw, 0.9em);
+    }
+}

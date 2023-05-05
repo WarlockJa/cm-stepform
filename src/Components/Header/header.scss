@@ -1,0 +1,116 @@
+@use '../../media.scss';
+
+.header--Desktop {
+    display: none;
+}
+
+.header {
+    z-index: 2;
+    
+    .header__bgWrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 10.7em;
+        width: 100%;
+        z-index: -1;
+
+        .header--background {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+        padding: 2em;
+
+        .header__navButton,
+        .header__navButton--disabled {
+            border-radius: 50%;
+            border: 1px solid var(--clr-alabaster);
+            color: var(--clr-alabaster);
+            background: transparent;
+            font-weight: bold;
+            width: 2.5em;
+            height: 2.5em;
+            transition:
+                background 300ms ease,
+                color 300ms ease,
+                border 300ms ease;
+        }
+        .header__navButton:hover,
+        .header__navButton:focus,
+        .header__navButton--active {
+            color: var(--clr-font-primary);
+            border: 1px solid var(--clr-marineBlue);
+            outline: transparent;
+        }
+        .header__navButton--active {
+            border: 1px solid var(--clr-border-selected);
+            background-color: var(--clr-lightBlue);
+        }
+    }
+}
+
+@include media.min-width(medium) {
+    .header--Mobile {
+        display: none;
+    }
+    .header--Desktop {
+        display: block;
+    }
+    
+    .header {
+        position: relative;
+        // calculating exact offset based on the given picture dimensions
+        // picture's width realtive to its height is 48.24% (274px to 568px)
+        // given frame's ratio 16:10, the width needed by the picture to keep its dimensions is
+        // pictureWidth = 0.4824 * 0.625 * frameWidth = 0.3015 frameWidth
+        // plus padding offset for top and bottom of 4px
+        width: calc(30.15% + 4px);
+
+        .header__bgWrapper{
+            overflow: hidden;
+            height: 100%;
+
+            .header--background {
+                object-fit: contain;
+            }
+        }
+
+        nav {
+            flex-direction: column;
+            gap: 2em;
+
+            .header__navButtonWrapper {
+                display: flex;
+
+                label {
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    margin-left: 0.9em;
+
+                    p {
+                        text-transform: uppercase;
+                        font-size: 0.8rem;
+                        margin: 0;
+                        color: var(--clr-font-secondary);
+                    }
+
+                    .header__navButtonWrapper--labelInfoP {
+                        color: var(--clr-font-tertiary);
+                        font-size: 0.9rem;
+                        font-weight: 700;
+                        padding-top: 0.1em;
+                    }
+                }
+            }
+        }
+    }
+}

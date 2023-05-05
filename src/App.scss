@@ -1,0 +1,208 @@
+@use './media.scss';
+
+// hiding empty scrollbars appearing in chrome when using overflow: scroll
+main::-webkit-scrollbar{
+    display: none;
+}
+
+main {
+    background-color: var(--clr-magnolia);
+    font-family: 'Ubuntu', sans-serif;
+    color: var(--clr-font-primary);
+    
+    display: flex;
+    flex-direction: column;
+    
+    // taking into account fixed controls element on the stepForm for small screens compatibility
+    overflow-y: scroll;
+    height: calc(100vh - 4.46em);
+
+    // using :has to get rid of the unnecessary height offset on the forms that don't have the fixed controls block
+    // content is still available if :has not supported by the browser
+    &:not(:has(.stepForm > p ~ .stepForm__submitWrapper)) {
+        height: 100vh;
+    }
+
+    .stepForm {
+        z-index: 2;
+        padding: 2em 1.5em;
+        margin: 0 1em;
+        border-radius: 12px;
+        background-color: var(--clr-bg-form);
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        p {
+            color: var(--clr-font-secondary);
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 0.8em 0 1.3em 0;
+        }
+
+        .stepForm__contentWrapper {
+            margin-top: 0.5em;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+
+        .stepForm__submitWrapper {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--clr-bg-secondary);
+
+            display: flex;
+            justify-content: space-between;
+
+            
+            .stepForm__submitButton {
+                transition: background 300ms ease;
+                padding: 0.8em 1em;
+                background-color: var(--clr-bg-submitButton);
+                color: var(--clr-font-tertiary);
+                font-size: 0.9rem;
+                font-weight: 500;
+                border: 1px solid transparent;
+                border-radius: 5px;
+                outline: transparent;
+                margin: 1em;
+                cursor: pointer;
+
+                order: 2;
+            }
+            .stepForm__submitButton:hover,
+            .stepForm__submitButton:focus {
+                background-color: var(--clr-bg-submitButton-hover);
+            }
+
+            .stepForm__confirmButton {
+                width: 6.8em;
+            }
+            .stepForm__confirmButton:hover,
+            .stepForm__confirmButton:focus {
+                background-color: var(--clr-purplishBlue);
+            }
+
+            .stepForm__backButton {
+                background-color: transparent;
+                margin: auto auto auto 1em;
+                font-size: 0.9rem;
+                font-weight: 500;
+                border: transparent;
+                color: var(--clr-font-secondary);
+                cursor: pointer;
+                transition: color 300ms ease;
+
+                order: 1;
+            }
+            .stepForm__backButton:hover,
+            .stepForm__backButton:focus {
+                color: var(--clr-font-primary);
+            }
+            .stepForm__backButton:focus {
+                border-radius: 2px;
+                outline: 1px solid var(--clr-border-activeElement-hover);
+            }
+        }
+    }
+}
+
+@include media.min-width(medium) {
+    #root {
+        background-color: var(--clr-bg-primary);
+        background-color: var(--clr-pastelBlue);
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 100vh;
+
+        // frame height according to 16:10 ratio
+        min-height: 62.5vw;
+    }
+
+    main {
+        background-color: var(--clr-bg-form);
+        border-radius: 15px;
+        padding: 1em;
+
+        position: relative;
+
+        flex-direction: row;
+
+        // setting a fixed ratio for the frame
+        // 16:10 ratio
+        height: 62.5vw;
+        width: 100%;
+        // 16:10 ratio
+        max-width: 960px;
+        max-height: 600px;
+
+        // hiding empty scrollbars appearing in chrome when using overflow: scroll
+        .stepForm::-webkit-scrollbar{
+            display: none;
+        }
+
+        .stepForm {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 0;
+            // calculating width for stepForm within the frame by removing
+            // calculated width of the header picture
+            width: calc(100% - 30.15% - 4px);
+            overflow-y: scroll;
+
+            padding: clamp(0.1em, 2vw, 2.6em) clamp(1.5em, 6vw, 5em) 0 clamp(1em, 6vw, 5em);
+            margin: 0 0 0 1em;
+
+            h1 {
+                font-size: clamp(1.5rem, 3vw, 2rem);
+            }
+
+            p {
+                margin: clamp(0.1em, 1vw, 0.7em) 0 clamp(0em, 1vw, 1.7em) 0;
+                font-size: clamp(0.9rem, 2vw, 1rem);
+            }
+
+            .stepForm__contentWrapper {
+                gap: clamp(0.2em, 2vw, 1.4em);
+            }
+
+            .stepForm__submitWrapper {
+                position: initial;
+                margin-top: auto;
+                background-color: transparent;
+
+                .stepForm__confirmButton {
+                    width: 7.1em;
+                }
+                .stepForm__submitButton {
+                    margin: clamp(0.1em, 1vw, 1em) 0;
+                    padding: 0.8em 1.2em;
+                    font-size: clamp(0.9rem, 2vw, 1rem);
+                    border-radius: 8px;
+                }
+
+                .stepForm__backButton {
+                    margin: auto auto auto 0;
+                    font-size: clamp(0.9rem, 2vw, 1rem);
+                }
+            }
+        }
+    }
+}
+
+@include media.min-width(large) {
+    #root {
+        height: 100vh;
+
+        // removing min-height for higher resolutions
+        min-height: auto;
+    }
+}

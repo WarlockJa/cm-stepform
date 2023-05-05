@@ -1,0 +1,12 @@
+@use '../../media.scss';
+
+.pickAddons__contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+
+    @include media.min-width(medium) {
+        gap: 1em;
+        margin-top: 0.7em;
+    }
+}

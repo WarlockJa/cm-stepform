@@ -1,0 +1,75 @@
+@use '../../media.scss';
+
+.planCard {
+    border: 1px solid var(--clr-border-input);
+    border-radius: 8px;
+    display: flex;
+    padding: 1em 1em 0.5em 1em;
+    padding: 1em;
+    gap: 0.9em;
+    cursor: pointer;
+
+    height: 6.2em;
+    transition: height 300ms ease,
+        border 300ms ease,
+        background 300ms ease;
+    
+    .planCard__details {
+        display: flex;
+        flex-direction: column;
+        
+        h2 {
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        p {
+            margin: 0;
+            margin-top: 0.2em;
+            font-size: 0.9rem;
+        }
+        
+        .planCard__details--discount {
+            color: var(--clr-font-primary);
+            font-size: 0.8rem;
+            transition: opacity 200ms ease;
+        }
+    }
+    
+    .planCard__details--hidden {
+        height: 0;
+        opacity: 0;
+    }
+
+    .planCard--tabNavigationEnabler {
+        position: absolute;
+        opacity: 0;
+    }
+
+    @include media.min-width(medium) {
+        flex: 1;
+        flex-direction: column;
+        height: clamp(10.6em, 10vw, 11.5em);
+
+        .planCard__details {
+            margin-top: auto;
+        }
+    }
+}
+
+.planCard:hover,
+.planCard:focus-within,
+.planCard--selectedPlan {
+    border: 1px solid var(--clr-border-selected);
+}
+.planCard--selectedPlan {
+    background-color: var(--clr-bg-primary);
+}
+
+.planCard--hiddenDetails {
+    height: 4.9em;
+
+    @include media.min-width(medium) {
+        height: 10em;
+    }
+}
